@@ -3,34 +3,29 @@
 [![Python](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
-**Can a Vision-Language Model tell *which goal* a robot is reaching for — just by watching its motion?**
+This repository asks whether a vision-language model can tell which goal a robot is reaching for just from watching its motion. It is the evaluation engine behind my MS thesis, *Vision-Language Models as Proxies for Human Judgment of Robot Motion Legibility* (Arizona State University, 2026). It feeds rendered frames of robot manipulation videos to frontier VLMs (Gemini, GPT, and Claude) and measures how accurately, and how early, each model infers the robot's intended goal from partial motion. This stands in for the human goal inference that defines motion legibility in human-robot interaction.
 
-This repository is the evaluation engine behind my MS thesis, *Vision-Language Models as Proxies for Human Judgment of Robot Motion Legibility* (Arizona State University, 2026). It feeds rendered frames of robot manipulation videos to frontier VLMs (**Gemini, GPT, Claude**) and measures how accurately — and how early — each model infers the robot's intended goal from **partial** motion. This is a stand-in for the human "goal inference" that defines motion *legibility* in human–robot interaction.
-
-> **Companion repo:** the diffusion-policy side of the thesis — using these VLM scores to *rerank* candidate robot trajectories — lives in [`multimodal-diffusion-steering`](https://github.com/agottap1-lang/multimodal-diffusion-steering).
+The diffusion-policy side of the thesis, which uses these VLM scores to rerank candidate robot trajectories, is in the companion repo [multimodal-diffusion-steering](https://github.com/agottap1-lang/multimodal-diffusion-steering).
 
 <p align="center">
   <img src="analysis_results_2/vlm_flow_simplified.png" alt="VLM legibility evaluation pipeline" width="85%">
 </p>
 
----
+## What's in the repo
 
-## Highlights
-- **Cumulative "prefix-frame" prompting** — at each timepoint *t*, the model sees every frame from `0…t`, so we can measure *when* intent becomes inferable, not just whether.
-- **Three frontier VLMs, one harness** — Gemini, OpenAI, and Anthropic behind a single provider-agnostic interface, evaluated on identical inputs.
-- **Leakage-proof protocol** — the model never sees the ground-truth goal, the legible/ambiguous label, or revealing filenames. It only ever sees frames + two neutral goal descriptions.
-- **Fully reproducible** — every run logs git commit, model config, dependency snapshot, latency, and request IDs to `run_info.json`.
-- **Structured, parseable output** — each evaluation returns a goal distribution, a visual-cue rationale, and a legibility flag as strict JSON.
+- Cumulative "prefix-frame" prompting. At each timepoint t, the model sees every frame from 0 to t, so the analysis can measure when intent becomes inferable, not just whether.
+- Three frontier VLMs behind one harness. Gemini, OpenAI, and Anthropic share a single provider-agnostic interface and are evaluated on identical inputs.
+- A leakage-safe protocol. The model never sees the ground-truth goal, the legible/ambiguous label, or revealing filenames; it only sees frames and two neutral goal descriptions.
+- Reproducible runs. Each run logs the git commit, model config, dependency snapshot, latency, and request IDs to `run_info.json`.
+- Structured output. Each evaluation returns a goal distribution, a visual-cue rationale, and a legibility flag as strict JSON.
 
----
+## Results
 
-## Key Results
-
-Across **8 robot-motion videos** (block-pick and drawer-close; legible vs. ambiguous trajectories) and **31 evaluated timepoints**, with the uncertain answer counted as wrong:
+Across 8 robot-motion videos (block-pick and drawer-close, legible vs. ambiguous trajectories) and 31 evaluated timepoints, with the uncertain answer counted as wrong:
 
 | Model | Mean goal-inference accuracy |
 |---|:--:|
-| **Gemini 3 Pro** | **67.7%** |
+| Gemini 3 Pro | 67.7% |
 | Claude Opus 4.5 | 64.5% |
 | GPT-5.4 | 61.3% |
 
@@ -38,50 +33,50 @@ Across **8 robot-motion videos** (block-pick and drawer-close; legible vs. ambig
   <img src="analysis_results_2/figure1_main_comparison.png" alt="Reference vs VLM goal-inference accuracy" width="78%">
 </p>
 
-**What the study found:**
-- VLMs extract a **real goal-inference signal** from partial robot motion — well above chance when the motion is legible.
-- Accuracy is **consistently higher on legible than on ambiguous trajectories**, exactly as the legibility hypothesis predicts: clear early motion → earlier, more confident inference.
-- The **relative** scoring structure is stable across model families even though absolute calibration differs — supporting VLMs as a *qualitative* legibility signal (don't compare raw scores across providers).
+What the study found:
+
+- VLMs extract a real goal-inference signal from partial robot motion, well above chance when the motion is legible.
+- Accuracy is consistently higher on legible than on ambiguous trajectories, which matches the legibility hypothesis: clearer early motion lets the model infer the goal earlier and more confidently.
+- The relative ordering of scores is stable across model families even though absolute calibration differs, so VLM scores are useful as a qualitative legibility signal but raw scores should not be compared across providers.
 
 <p align="center">
   <img src="thesis_figures/fig1_accuracy_by_type.png" alt="Accuracy by trajectory type (legible vs ambiguous)" width="70%">
 </p>
 
-*(Figures are regenerated by the analysis scripts in `scripts/`; full discussion is in the thesis.)*
-
----
+The figures are regenerated by the analysis scripts in `scripts/`, and the full discussion is in the thesis.
 
 ## How it works
 
-**1. Sample frames.** Each video is decoded to frames at a fixed rate (default 1.0 s) so every timepoint is treated uniformly.
+**1. Sample frames.** Each video is decoded to frames at a fixed rate (default 1.0 s), so every timepoint is treated uniformly.
 
-**2. Prompt the VLM.** Two evaluation modes:
-| Mode | Images sent at time *t* | Question it answers |
+**2. Prompt the VLM.** There are two evaluation modes:
+
+| Mode | Images sent at time t | Question it answers |
 |---|---|---|
-| `single_frame` (baseline) | one frame at *t* | Can a *snapshot* reveal intent? |
-| `prefix_frames` | all frames `0…t` | Does observing *motion* help, and *when*? |
+| `single_frame` (baseline) | one frame at t | Can a snapshot reveal intent? |
+| `prefix_frames` | all frames from 0 to t | Does observing motion help, and when? |
 
-The model is asked to return strict JSON: probabilities for each goal, the visual cue it used, and whether the motion is legible yet.
+The model returns strict JSON: probabilities for each goal, the visual cue it used, and whether the motion is legible yet.
 
 **3. Decide.** A deterministic rule turns the probabilities into a discrete choice with an uncertainty band:
 
 ```python
 m = max(pA, pB)
-confidence = round(m * 100)          # 0–100
+confidence = round(m * 100)          # 0 to 100
 if m >= 0.60:
     choice = "A" if pA >= pB else "B"
 else:
     choice = "C"                     # uncertain (hedging counts as wrong)
 ```
 
-**4. Score & analyze.** Predictions are compared to held-out ground truth and aggregated per video and by trajectory type; analysis scripts produce the tables and figures above.
+**4. Score and analyze.** Predictions are compared to held-out ground truth and aggregated per video and by trajectory type; the analysis scripts produce the tables and figures above.
 
-### Anti-leakage guarantee
-The VLM **only** receives: the frame image(s), two neutral goal descriptions (e.g. *"pick the left block"* / *"pick the right block"*), and the timestamp/`video_id` for logging. It **never** receives `goal_gt`, the `traj_type` label, or filenames that could give away the answer. Enforced in `prompt.py` and `client.py`.
+### Leakage safeguard
 
----
+The VLM only receives the frame images, two neutral goal descriptions (for example "pick the left block" and "pick the right block"), and the timestamp and `video_id` for logging. It never receives `goal_gt`, the `traj_type` label, or filenames that could give away the answer. This is enforced in `prompt.py` and `client.py`.
 
 ## Repository structure
+
 ```
 gemini_vlm_eval/
 ├── src/gemini_vlm_eval/
@@ -89,27 +84,26 @@ gemini_vlm_eval/
 │   ├── openai_client.py     # GPT (OpenAI) provider
 │   ├── anthropic_client.py  # Claude (Anthropic) provider
 │   ├── config.py            # API-key loading (.env) + per-provider model defaults
-│   ├── prompt.py            # Task-agnostic, leakage-safe prompt templates
-│   ├── runner.py            # Provider-agnostic evaluation loop
+│   ├── prompt.py            # task-agnostic, leakage-safe prompt templates
+│   ├── runner.py            # provider-agnostic evaluation loop
 │   ├── schema.py            # Pydantic models (ManifestEntry, EvaluationResult)
-│   └── video.py             # Frame extraction
+│   └── video.py             # frame extraction
 ├── scripts/
-│   ├── eval_dataset.py          # ★ canonical: manifest-driven batch evaluation
+│   ├── eval_dataset.py          # canonical: manifest-driven batch evaluation
 │   ├── multi_model_evaluation.py# compare multiple Gemini models
 │   ├── compare_all_providers.py # cross-provider comparison
 │   ├── analyze_jsonl.py         # per-run markdown report
 │   ├── compute_iou.py           # agreement vs. human annotations
-│   └── … figure/analysis generators used for the thesis
+│   └── (figure/analysis generators used for the thesis)
 ├── data/manifest.jsonl      # 8-video dataset manifest
 ├── outputs/                 # results_*.jsonl + run_info_*.json provenance
 ├── reports/                 # per-video analysis reports
-├── thesis_figures/ , analysis_results_2/   # published figures & summary CSVs
+├── thesis_figures/ , analysis_results_2/   # figures and summary CSVs
 └── pyproject.toml
 ```
 
----
-
 ## Installation
+
 ```bash
 git clone https://github.com/agottap1-lang/gemini-vlm-goal-inference.git
 cd gemini-vlm-goal-inference
@@ -119,28 +113,27 @@ source .venv/bin/activate          # Windows: .venv\Scripts\activate
 pip install -e ".[all-providers]"  # core install: pip install -e .
 ```
 
-Create a `.env` (never commit it — it is gitignored):
+Create a `.env` (it is gitignored, so do not commit it):
+
 ```dotenv
 GEMINI_API_KEY=your-gemini-key
 OPENAI_API_KEY=your-openai-key       # only for --provider openai
 ANTHROPIC_API_KEY=your-anthropic-key # only for --provider anthropic
 ```
 
----
-
 ## Usage
 
-**Canonical entry point: `scripts/eval_dataset.py`.**
+The canonical entry point is `scripts/eval_dataset.py`.
 
 ```bash
 # Validate the dataset first
 python scripts/validate_manifest.py --manifest data/manifest.jsonl
 
-# Baseline — single-frame, whole videos (Gemini, default provider)
+# Baseline: single-frame, whole videos (Gemini, default provider)
 python scripts/eval_dataset.py --manifest data/manifest.jsonl --k all \
   --out outputs/results_single_frame.jsonl
 
-# Temporal context — cumulative frames 0..t at each timepoint
+# Temporal context: cumulative frames 0..t at each timepoint
 python scripts/eval_dataset.py --manifest data/manifest.jsonl --k all \
   --mode prefix_frames --out outputs/results_prefix_frames.jsonl
 
@@ -151,9 +144,9 @@ python scripts/eval_dataset.py --manifest data/manifest.jsonl --k all \
   --provider anthropic --out outputs/results_claude.jsonl
 ```
 
-Useful flags: `--k N` (first N seconds), `--model <name>`, `--save-frames` (dump exactly what the model saw to `outputs/frames/<video_id>/`).
+Useful flags: `--k N` (first N seconds), `--model <name>`, and `--save-frames` (dump exactly what the model saw to `outputs/frames/<video_id>/`).
 
-**Default models per provider** (override with `--model`):
+Default models per provider (override with `--model`):
 
 | Provider | Default | Study used |
 |---|---|---|
@@ -161,7 +154,8 @@ Useful flags: `--k N` (first N seconds), `--model <name>`, `--save-frames` (dump
 | `openai` | `gpt-4o` | GPT-5.4 |
 | `anthropic` | `claude-opus-4-5` | Claude Opus 4.5 |
 
-**Analyze & compare:**
+Analyze and compare:
+
 ```bash
 python scripts/analyze_jsonl.py outputs/results_prefix_frames.jsonl --output reports/analysis.md
 python scripts/compare_all_providers.py     # cross-provider comparison
@@ -170,6 +164,7 @@ python scripts/compute_iou.py --vlm-jsonl outputs/results_prefix_frames.jsonl \
 ```
 
 ### Output schema (JSONL, one row per timepoint)
+
 ```json
 {
   "video_id": "amb_l_block", "t_sec": 2, "frame_idx": 58,
@@ -180,16 +175,15 @@ python scripts/compute_iou.py --vlm-jsonl outputs/results_prefix_frames.jsonl \
   "legible": "legible_now"
 }
 ```
-`goal_gt` and `traj_type` are stored for scoring only — they are never sent to the model.
 
----
+`goal_gt` and `traj_type` are stored for scoring only and are never sent to the model.
 
 ## Reproducibility
-Every run writes `outputs/run_info_<id>.json` capturing the git commit + dirty flag, full model/generation config, evaluation mode, UTC timestamps, OS/Python/library versions, the exact CLI command, and a `pip freeze` snapshot. To reproduce: check out the same commit, `pip install -r outputs/pip_freeze.txt`, and rerun the logged command. *(Note: VLM APIs can be mildly nondeterministic even at temperature 0; request/response IDs are logged for traceability.)*
 
----
+Every run writes `outputs/run_info_<id>.json` capturing the git commit and dirty flag, the full model and generation config, the evaluation mode, UTC timestamps, OS/Python/library versions, the exact CLI command, and a `pip freeze` snapshot. To reproduce a result, check out the same commit, run `pip install -r outputs/pip_freeze.txt`, and rerun the logged command. Note that VLM APIs can be mildly nondeterministic even at temperature 0, so request and response IDs are logged for traceability.
 
 ## Citation
+
 ```bibtex
 @mastersthesis{gottapu2026vlmlegibility,
   title  = {Vision-Language Models as Proxies for Human Judgment of Robot Motion Legibility},
@@ -200,7 +194,9 @@ Every run writes `outputs/run_info_<id>.json` capturing the git commit + dirty f
 ```
 
 ## License
-MIT — see [LICENSE](LICENSE). Research software: API usage with Google, OpenAI, or Anthropic may incur costs; monitor your quotas.
+
+MIT, see [LICENSE](LICENSE). This is research software; API usage with Google, OpenAI, or Anthropic may incur costs, so monitor your quotas.
 
 ## Acknowledgments
-Thesis advised by Prof. Nakul Gopalan (LOGOS Robotics Lab, ASU); committee: Hani Ben Amor, Kunal Garg. Built with Google `google-genai`, OpenAI, Anthropic, OpenCV, and Pydantic.
+
+Thesis advised by Prof. Nakul Gopalan (LOGOS Robotics Lab, ASU); committee: Hani Ben Amor and Kunal Garg. Built with Google `google-genai`, OpenAI, Anthropic, OpenCV, and Pydantic.
