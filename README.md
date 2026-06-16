@@ -10,7 +10,7 @@ This repository is the evaluation engine behind my MS thesis, *Vision-Language M
 > **Companion repo:** the diffusion-policy side of the thesis — using these VLM scores to *rerank* candidate robot trajectories — lives in [`multimodal-diffusion-steering`](https://github.com/agottap1-lang/multimodal-diffusion-steering).
 
 <p align="center">
-  <img src="analysis_results_2/pipeline_diagram.png" alt="VLM legibility evaluation pipeline" width="80%">
+  <img src="analysis_results_2/vlm_flow_simplified.png" alt="VLM legibility evaluation pipeline" width="85%">
 </p>
 
 ---
