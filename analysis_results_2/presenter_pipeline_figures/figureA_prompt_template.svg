@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <rect width="1600" height="900" fill="#F7F7F5"/>
+
+  <text x="800" y="62" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="34" font-weight="700" fill="#1F2937">
+    Figure A. Prompt Template in prompt.py
+  </text>
+  <text x="800" y="96" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="18" fill="#6B7280">
+    What the VLM is asked to do, what comes from the manifest, and what stays hidden.
+  </text>
+
+  <rect x="60" y="150" rx="24" ry="24" width="870" height="280" fill="#E9F7F4" stroke="#0F766E" stroke-width="3"/>
+  <rect x="60" y="150" rx="24" ry="24" width="870" height="64" fill="#0F766E"/>
+  <text x="495" y="191" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="24" font-weight="700" fill="#FFFFFF">
+    1. Mode-Specific Context
+  </text>
+  <text x="88" y="248" font-family="DejaVu Sans, Arial, sans-serif" font-size="20" fill="#1F2937">
+    <tspan x="88" dy="0">prefix_frames: "You are given MULTIPLE images showing frames from t=0 to t=T."</tspan>
+    <tspan x="88" dy="32">single_frame:  "You are given ONLY ONE image captured at time t=T."</tspan>
+    <tspan x="88" dy="44">Runtime values inserted here:</tspan>
+    <tspan x="88" dy="30">  - video_id</tspan>
+    <tspan x="88" dy="30">  - t_sec</tspan>
+    <tspan x="88" dy="30">  - mode</tspan>
+  </text>
+
+  <rect x="970" y="150" rx="24" ry="24" width="570" height="280" fill="#FEF1E9" stroke="#C2410C" stroke-width="3"/>
+  <rect x="970" y="150" rx="24" ry="24" width="570" height="64" fill="#C2410C"/>
+  <text x="1255" y="191" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="24" font-weight="700" fill="#FFFFFF">
+    2. Required JSON Output
+  </text>
+  <text x="1000" y="248" font-family="DejaVu Sans Mono, Consolas, monospace" font-size="19" fill="#1F2937">
+    <tspan x="1000" dy="0">{"pA": ..., "pB": ...,</tspan>
+    <tspan x="1000" dy="30"> "cue": "...",</tspan>
+    <tspan x="1000" dy="30"> "legible": "legible_now" |</tspan>
+    <tspan x="1000" dy="30">             "not_legible_yet"}</tspan>
+  </text>
+  <text x="1000" y="386" font-family="DejaVu Sans, Arial, sans-serif" font-size="20" fill="#1F2937">
+    <tspan x="1000" dy="0">The prompt also asks for:</tspan>
+    <tspan x="1000" dy="30">  - 0 &lt;= pA, pB &lt;= 1</tspan>
+    <tspan x="1000" dy="30">  - pA + pB = 1</tspan>
+  </text>
+
+  <rect x="60" y="470" rx="24" ry="24" width="870" height="220" fill="#ECF4FF" stroke="#1D4ED8" stroke-width="3"/>
+  <rect x="60" y="470" rx="24" ry="24" width="870" height="64" fill="#1D4ED8"/>
+  <text x="495" y="511" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="24" font-weight="700" fill="#FFFFFF">
+    3. Goal Options Injected from manifest.jsonl
+  </text>
+  <text x="88" y="570" font-family="DejaVu Sans, Arial, sans-serif" font-size="20" fill="#1F2937">
+    <tspan x="88" dy="0">There are exactly two candidate goals:</tspan>
+    <tspan x="88" dy="34">  Goal A: &lt;goal_A&gt;</tspan>
+    <tspan x="88" dy="34">  Goal B: &lt;goal_B&gt;</tspan>
+    <tspan x="88" dy="46">This is the main reason the same prompt template can be reused</tspan>
+    <tspan x="88" dy="30">for every new video row in the benchmark manifest.</tspan>
+  </text>
+
+  <rect x="970" y="470" rx="24" ry="24" width="570" height="220" fill="#F1EBFE" stroke="#7C3AED" stroke-width="3"/>
+  <rect x="970" y="470" rx="24" ry="24" width="570" height="64" fill="#7C3AED"/>
+  <text x="1255" y="511" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="24" font-weight="700" fill="#FFFFFF">
+    4. Fixed Interpretation Rule
+  </text>
+  <text x="1000" y="570" font-family="DejaVu Sans, Arial, sans-serif" font-size="20" fill="#1F2937">
+    <tspan x="1000" dy="0">The prompt tells the model to inspect the arm path shape,</tspan>
+    <tspan x="1000" dy="32">especially lateral bias / curvature, then estimate:</tspan>
+    <tspan x="1000" dy="34">  - pA</tspan>
+    <tspan x="1000" dy="30">  - pB</tspan>
+    <tspan x="1000" dy="30">  - cue</tspan>
+    <tspan x="1000" dy="30">  - legible</tspan>
+  </text>
+
+  <rect x="60" y="735" rx="24" ry="24" width="1480" height="120" fill="#FDEAF3" stroke="#BE185D" stroke-width="3"/>
+  <rect x="60" y="735" rx="24" ry="24" width="1480" height="58" fill="#BE185D"/>
+  <text x="800" y="772" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="24" font-weight="700" fill="#FFFFFF">
+    Speaker Notes
+  </text>
+  <text x="86" y="820" font-family="DejaVu Sans, Arial, sans-serif" font-size="18" fill="#1F2937">
+    <tspan x="86" dy="0">The prompt does NOT include goal_gt or traj_type. Those fields stay in the manifest and are used only after inference for evaluation and grouping.</tspan>
+    <tspan x="86" dy="28">Important nuance: the current prompt template is reusable for new two-goal videos in this benchmark, but it is not fully universal for arbitrary tasks because the interpretation logic is still hand-written.</tspan>
+  </text>
+
+  <rect x="1090" y="112" rx="16" ry="16" width="140" height="34" fill="#DCEAFE" stroke="#1D4ED8" stroke-width="2"/>
+  <text x="1160" y="135" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="16" font-weight="700" fill="#1D4ED8">manifest</text>
+  <rect x="1248" y="112" rx="16" ry="16" width="128" height="34" fill="#DCFCE7" stroke="#15803D" stroke-width="2"/>
+  <text x="1312" y="135" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="16" font-weight="700" fill="#15803D">runtime</text>
+  <rect x="1394" y="112" rx="16" ry="16" width="126" height="34" fill="#FFEDD5" stroke="#C2410C" stroke-width="2"/>
+  <text x="1457" y="135" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="16" font-weight="700" fill="#C2410C">VLM output</text>
+</svg>

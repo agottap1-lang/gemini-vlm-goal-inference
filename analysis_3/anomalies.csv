@@ -1,0 +1,36 @@
+type,video_id,model,timepoint,previous_choice,new_choice,confidence,description,predicted,ground_truth
+choice_flip_after_high_confidence,amb_r_block,gemini-2.5-flash,7,B,A,100.0,Changed from B (high conf) to A at t=7s,,
+high_confidence_wrong,amb_r_block,gemini-2.5-flash,7,,,100.0,"Predicted A with 100% confidence, but correct is B",A,B
+choice_flip_after_high_confidence,amb_to_drawer_close,gemini-2.5-flash,10,A,B,95.0,Changed from A (high conf) to B at t=10s,,
+choice_flip_after_high_confidence,amb_to_drawer_close,gemini-2.5-flash,15,A,B,95.0,Changed from A (high conf) to B at t=15s,,
+choice_flip_after_high_confidence,le_d_drawer_close,gemini-2.5-flash,8,B,A,99.0,Changed from B (high conf) to A at t=8s,,
+choice_flip_after_high_confidence,le_d_drawer_close,gemini-2.5-flash,11,B,A,95.0,Changed from B (high conf) to A at t=11s,,
+high_confidence_wrong,le_d_drawer_close,gemini-2.5-flash,3,,,95.0,"Predicted B with 95% confidence, but correct is A",B,A
+choice_flip_after_high_confidence,le_r_block,gemini-2.5-flash,11,A,B,95.0,Changed from A (high conf) to B at t=11s,,
+high_confidence_wrong,le_r_block,gemini-2.5-flash,4,,,95.0,"Predicted A with 95% confidence, but correct is B",A,B
+high_confidence_wrong,le_r_block,gemini-2.5-flash,5,,,98.0,"Predicted A with 98% confidence, but correct is B",A,B
+choice_flip_after_high_confidence,le_t_drawer_close,gemini-2.5-flash,5,A,B,95.0,Changed from A (high conf) to B at t=5s,,
+choice_flip_after_high_confidence,le_t_drawer_close,gemini-2.5-flash,8,A,B,95.0,Changed from A (high conf) to B at t=8s,,
+high_confidence_wrong,le_t_drawer_close,gemini-2.5-flash,1,,,90.0,"Predicted A with 90% confidence, but correct is B",A,B
+choice_flip_after_high_confidence,amb_d_drawer_close,gemini-2.5-pro,19,B,A,99.0,Changed from B (high conf) to A at t=19s,,
+high_confidence_wrong,amb_d_drawer_close,gemini-2.5-pro,5,,,95.0,"Predicted B with 95% confidence, but correct is A",B,A
+final_uncertain,amb_r_block,gemini-2.5-pro,14,,,,Still uncertain (C) at final timepoint t=14s,,
+choice_flip_after_high_confidence,amb_to_drawer_close,gemini-2.5-pro,10,A,B,99.0,Changed from A (high conf) to B at t=10s,,
+choice_flip_after_high_confidence,amb_to_drawer_close,gemini-2.5-pro,15,A,B,99.0,Changed from A (high conf) to B at t=15s,,
+high_confidence_wrong,amb_to_drawer_close,gemini-2.5-pro,2,,,95.0,"Predicted A with 95% confidence, but correct is B",A,B
+choice_flip_after_high_confidence,le_d_drawer_close,gemini-2.5-pro,11,B,A,95.0,Changed from B (high conf) to A at t=11s,,
+high_confidence_wrong,le_d_drawer_close,gemini-2.5-pro,8,,,95.0,"Predicted B with 95% confidence, but correct is A",B,A
+choice_flip_after_high_confidence,le_r_block,gemini-2.5-pro,5,A,B,95.0,Changed from A (high conf) to B at t=5s,,
+choice_flip_after_high_confidence,le_r_block,gemini-2.5-pro,11,A,B,95.0,Changed from A (high conf) to B at t=11s,,
+high_confidence_wrong,le_r_block,gemini-2.5-pro,4,,,95.0,"Predicted A with 95% confidence, but correct is B",A,B
+choice_flip_after_high_confidence,amb_to_drawer_close,gemini-3-pro-preview,10,A,B,99.0,Changed from A (high conf) to B at t=10s,,
+choice_flip_after_high_confidence,amb_to_drawer_close,gemini-3-pro-preview,15,A,B,99.0,Changed from A (high conf) to B at t=15s,,
+high_confidence_wrong,amb_to_drawer_close,gemini-3-pro-preview,2,,,85.0,"Predicted A with 85% confidence, but correct is B",A,B
+choice_flip_after_high_confidence,amb_to_drawer_close,gemini-3.1-pro-preview,10,A,B,99.0,Changed from A (high conf) to B at t=10s,,
+choice_flip_after_high_confidence,amb_to_drawer_close,gemini-3.1-pro-preview,15,A,B,99.0,Changed from A (high conf) to B at t=15s,,
+high_confidence_wrong,amb_to_drawer_close,gemini-3.1-pro-preview,2,,,95.0,"Predicted A with 95% confidence, but correct is B",A,B
+choice_flip_after_high_confidence,amb_to_drawer_close,gemini-pro-latest,10,A,B,100.0,Changed from A (high conf) to B at t=10s,,
+choice_flip_after_high_confidence,amb_to_drawer_close,gemini-pro-latest,15,A,B,100.0,Changed from A (high conf) to B at t=15s,,
+high_confidence_wrong,amb_to_drawer_close,gemini-pro-latest,2,,,90.0,"Predicted A with 90% confidence, but correct is B",A,B
+choice_flip_after_high_confidence,le_d_drawer_close,gemini-pro-latest,8,A,B,99.0,Changed from A (high conf) to B at t=8s,,
+high_confidence_wrong,le_d_drawer_close,gemini-pro-latest,8,,,99.0,"Predicted B with 99% confidence, but correct is A",B,A

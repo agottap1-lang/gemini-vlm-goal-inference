@@ -1,0 +1,17 @@
+{
+  "analysis_date": "2026-01-26T23:55:23.296269",
+  "overall_metrics": {
+    "human_accuracy": 69.65811965811966,
+    "vlm_accuracy": 64.51612903225806,
+    "iou_all_choices": 73.11827956989248,
+    "vlm_faster_count": 6,
+    "vlm_faster_percentage": 75.0
+  },
+  "data_sources": {
+    "vlm_predictions": 31,
+    "human_observations": 234,
+    "participants": 6,
+    "videos": 8
+  },
+  "fairness_note": "VLM evaluated ONLY at timepoints shown to humans (from user_study_timepoints.csv)"
+}

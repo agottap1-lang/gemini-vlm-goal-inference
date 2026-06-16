@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1700" height="1000" viewBox="0 0 1700 1000">
+  <rect width="1700" height="1000" fill="#F7F7F5"/>
+
+  <text x="850" y="60" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="34" font-weight="700" fill="#1F2937">
+    Figure B. How Manifest + Prompt Drive the Pipeline
+  </text>
+  <text x="850" y="95" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="18" fill="#6B7280">
+    Field provenance: what comes from the manifest, what comes from the VLM, and what is hardcoded in code.
+  </text>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#374151"/>
+    </marker>
+  </defs>
+
+  <rect x="40" y="190" rx="24" ry="24" width="260" height="370" fill="#ECF4FF" stroke="#1D4ED8" stroke-width="3"/>
+  <rect x="40" y="190" rx="24" ry="24" width="260" height="64" fill="#1D4ED8"/>
+  <text x="170" y="230" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="24" font-weight="700" fill="#FFFFFF">Manifest Row</text>
+  <text x="64" y="288" font-family="DejaVu Sans Mono, Consolas, monospace" font-size="18" fill="#1F2937">
+    <tspan x="64" dy="0">video_id: "amb_d_drawer_close"</tspan>
+    <tspan x="64" dy="30">video_path: "videos/..."</tspan>
+    <tspan x="64" dy="30">goal_gt: "A"</tspan>
+    <tspan x="64" dy="30">goal_A: "close the bottom drawer"</tspan>
+    <tspan x="64" dy="30">goal_B: "close the top drawer"</tspan>
+    <tspan x="64" dy="30">traj_type: "ambiguous"</tspan>
+    <tspan x="64" dy="44" font-family="DejaVu Sans, Arial, sans-serif">Reusable contract:</tspan>
+    <tspan x="64" dy="28" font-family="DejaVu Sans, Arial, sans-serif">one row defines one new video.</tspan>
+  </text>
+
+  <rect x="360" y="190" rx="24" ry="24" width="260" height="370" fill="#F1EBFE" stroke="#7C3AED" stroke-width="3"/>
+  <rect x="360" y="190" rx="24" ry="24" width="260" height="64" fill="#7C3AED"/>
+  <text x="490" y="230" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="24" font-weight="700" fill="#FFFFFF">Frame Sampling</text>
+  <text x="384" y="288" font-family="DejaVu Sans Mono, Consolas, monospace" font-size="18" fill="#1F2937">
+    <tspan x="384" dy="0">extract_frames(video_path, 1.0s)</tspan>
+    <tspan x="384" dy="40">target_times = 0, 1, 2, ...</tspan>
+    <tspan x="384" dy="30">frame_idx = int(t * fps)</tspan>
+    <tspan x="384" dy="44" font-family="DejaVu Sans, Arial, sans-serif">single_frame  -&gt; send frame[t]</tspan>
+    <tspan x="384" dy="28" font-family="DejaVu Sans, Arial, sans-serif">prefix_frames -&gt; send frames[0..t]</tspan>
+  </text>
+
+  <rect x="680" y="190" rx="24" ry="24" width="260" height="370" fill="#E9F7F4" stroke="#0F766E" stroke-width="3"/>
+  <rect x="680" y="190" rx="24" ry="24" width="260" height="64" fill="#0F766E"/>
+  <text x="810" y="230" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="24" font-weight="700" fill="#FFFFFF">Prompt Builder</text>
+  <text x="704" y="288" font-family="DejaVu Sans Mono, Consolas, monospace" font-size="17" fill="#1F2937">
+    <tspan x="704" dy="0">get_instruction_prompt(</tspan>
+    <tspan x="704" dy="28">  goal_A, goal_B, t_sec,</tspan>
+    <tspan x="704" dy="28">  video_id, mode</tspan>
+    <tspan x="704" dy="28">)</tspan>
+  </text>
+  <text x="704" y="410" font-family="DejaVu Sans, Arial, sans-serif" font-size="18" fill="#1F2937">
+    <tspan x="704" dy="0">Prompt sees:</tspan>
+    <tspan x="704" dy="28">  - goal_A, goal_B</tspan>
+    <tspan x="704" dy="28">  - video_id, t_sec, mode</tspan>
+    <tspan x="704" dy="40">Prompt does NOT see:</tspan>
+    <tspan x="704" dy="28">  - goal_gt</tspan>
+    <tspan x="704" dy="28">  - traj_type</tspan>
+  </text>
+
+  <rect x="1000" y="190" rx="24" ry="24" width="260" height="370" fill="#FEF1E9" stroke="#C2410C" stroke-width="3"/>
+  <rect x="1000" y="190" rx="24" ry="24" width="260" height="64" fill="#C2410C"/>
+  <text x="1130" y="230" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="24" font-weight="700" fill="#FFFFFF">Gemini VLM</text>
+  <text x="1024" y="290" font-family="DejaVu Sans, Arial, sans-serif" font-size="19" fill="#1F2937">
+    <tspan x="1024" dy="0">Inputs:</tspan>
+    <tspan x="1024" dy="30">  - prompt text</tspan>
+    <tspan x="1024" dy="30">  - image(s)</tspan>
+    <tspan x="1024" dy="42">Returns JSON:</tspan>
+    <tspan x="1024" dy="30">  - pA</tspan>
+    <tspan x="1024" dy="30">  - pB</tspan>
+    <tspan x="1024" dy="30">  - cue</tspan>
+    <tspan x="1024" dy="30">  - legible</tspan>
+  </text>
+
+  <rect x="1320" y="190" rx="24" ry="24" width="320" height="370" fill="#FDEAF3" stroke="#BE185D" stroke-width="3"/>
+  <rect x="1320" y="190" rx="24" ry="24" width="320" height="64" fill="#BE185D"/>
+  <text x="1480" y="230" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="24" font-weight="700" fill="#FFFFFF">Code Post-Processing</text>
+  <text x="1346" y="288" font-family="DejaVu Sans Mono, Consolas, monospace" font-size="18" fill="#1F2937">
+    <tspan x="1346" dy="0">max_p = max(pA, pB)</tspan>
+    <tspan x="1346" dy="30">confidence = round(max_p * 100)</tspan>
+    <tspan x="1346" dy="44">choice = A / B / C</tspan>
+    <tspan x="1346" dy="30">using threshold 0.52</tspan>
+  </text>
+  <text x="1346" y="455" font-family="DejaVu Sans, Arial, sans-serif" font-size="18" fill="#1F2937">
+    <tspan x="1346" dy="0">Important:</tspan>
+    <tspan x="1346" dy="28">legible is NOT computed here.</tspan>
+  </text>
+
+  <line x1="300" y1="375" x2="360" y2="375" stroke="#374151" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="620" y1="375" x2="680" y2="375" stroke="#374151" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="940" y1="375" x2="1000" y2="375" stroke="#374151" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="1260" y1="375" x2="1320" y2="375" stroke="#374151" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <text x="330" y="350" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="16" font-style="italic" fill="#374151">video_path</text>
+  <text x="650" y="350" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="16" font-style="italic" fill="#374151">frames + t_sec</text>
+  <text x="970" y="350" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="16" font-style="italic" fill="#374151">prompt + image(s)</text>
+  <text x="1290" y="350" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="16" font-style="italic" fill="#374151">pA, pB, cue, legible</text>
+
+  <rect x="210" y="650" rx="28" ry="28" width="1280" height="220" fill="#EAF8EE" stroke="#15803D" stroke-width="3"/>
+  <rect x="210" y="650" rx="28" ry="28" width="1280" height="64" fill="#15803D"/>
+  <text x="850" y="690" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="24" font-weight="700" fill="#FFFFFF">
+    Saved Result Row + Downstream Analysis
+  </text>
+  <text x="242" y="748" font-family="DejaVu Sans, Arial, sans-serif" font-size="20" fill="#1F2937">
+    <tspan x="242" dy="0">Each JSONL result row merges three sources:</tspan>
+    <tspan x="242" dy="34">1. Manifest metadata: video_id, goal_gt, goal_A, goal_B, traj_type, scene_id, task_family</tspan>
+    <tspan x="242" dy="34">2. VLM outputs: pA, pB, cue, legible</tspan>
+    <tspan x="242" dy="34">3. Hardcoded code outputs: choice, confidence</tspan>
+    <tspan x="242" dy="46">Then analysis uses goal_gt for correctness and traj_type for grouping, plus legible over time for TTL and IoU.</tspan>
+  </text>
+
+  <line x1="170" y1="560" x2="360" y2="650" stroke="#1D4ED8" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="1130" y1="560" x2="870" y2="650" stroke="#C2410C" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="1480" y1="560" x2="1100" y2="650" stroke="#BE185D" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <text x="290" y="615" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="16" font-style="italic" fill="#1D4ED8">manifest metadata</text>
+  <text x="1020" y="615" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="16" font-style="italic" fill="#C2410C">VLM outputs</text>
+  <text x="1288" y="615" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="16" font-style="italic" fill="#BE185D">choice + confidence</text>
+
+  <text x="850" y="950" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="18" fill="#6B7280">
+    Presenter framing: the manifest makes the pipeline scalable, the prompt defines the task, the VLM supplies probabilities and cues, and the code turns those probabilities into decisions.
+  </text>
+</svg>

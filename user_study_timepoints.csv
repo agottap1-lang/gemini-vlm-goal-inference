@@ -1,0 +1,9 @@
+video_id,duration,first_uncertain,first_high_conf,max_flip,final,recommended_timepoints
+amb_d_drawer_close,20,0,5,9,19,"0,5,9,19"
+amb_l_block,13,0,6,8,12,"0,6,8,12"
+amb_r_block,15,0,1,7,14,"0,1,7,14"
+amb_to_drawer_close,16,0,2,10,15,"0,2,10,15"
+le_d_drawer_close,12,0,3,8,11,"0,3,8,11"
+le_l_block,15,0,4,4,14,"0,4,14"
+le_r_block,12,0,4,5,11,"0,4,5,11"
+le_t_drawer_close,9,0,1,5,8,"0,1,5,8"

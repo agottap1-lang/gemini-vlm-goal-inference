@@ -1,0 +1,16 @@
+{
+  "n_trajectories": 8,
+  "r_crit_alpha05": 0.7067,
+  "spearman_R_accuracy": {
+    "r": -0.3293,
+    "p": 0.4258,
+    "significant": false,
+    "interpretation": "Trend (not significant)"
+  },
+  "spearman_R_p_correct": {
+    "r": -0.2275,
+    "p": 0.5878,
+    "significant": false,
+    "interpretation": "Trend (not significant)"
+  }
+}

@@ -1,0 +1,9 @@
+video_id,trajectory_type,human_accuracy,vlm_accuracy,difference
+amb_d_drawer_close,ambiguous,57.49999999999999,75.0,-17.500000000000007
+amb_l_block,ambiguous,80.0,75.0,5.0
+amb_r_block,ambiguous,62.5,25.0,37.5
+amb_to_drawer_close,ambiguous,57.49999999999999,75.0,-17.500000000000007
+le_d_drawer_close,legible,70.0,75.0,-5.0
+le_l_block,legible,75.0,66.66666666666666,8.333333333333343
+le_r_block,legible,77.5,50.0,27.5
+le_t_drawer_close,legible,55.00000000000001,75.0,-19.999999999999993

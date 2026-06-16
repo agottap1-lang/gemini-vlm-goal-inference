@@ -1,0 +1,9 @@
+video_id,trajectory_type,human_accuracy,vlm_accuracy,difference
+amb_d_drawer_close,ambiguous,63.33333333333333,75.0,-11.666666666666671
+amb_l_block,ambiguous,83.33333333333334,75.0,8.333333333333343
+amb_r_block,ambiguous,66.66666666666666,25.0,41.66666666666666
+amb_to_drawer_close,ambiguous,56.666666666666664,75.0,-18.333333333333336
+le_d_drawer_close,legible,76.66666666666667,75.0,1.6666666666666714
+le_l_block,legible,79.16666666666666,66.66666666666666,12.5
+le_r_block,legible,80.0,50.0,30.0
+le_t_drawer_close,legible,53.333333333333336,75.0,-21.666666666666664

@@ -1,0 +1,67 @@
+{
+  "human_vs_chance": {
+    "accuracy": 66.66666666666666,
+    "p_value": 3.136810579595068e-33,
+    "significant": true
+  },
+  "vlm_vs_chance": {
+    "accuracy": 64.51612903225806,
+    "p_value": 0.00037488529946747565,
+    "significant": true
+  },
+  "human_vs_vlm_overall": {
+    "chi2": 0.0018019007819563076,
+    "p_value": 0.9661409251009814,
+    "significant": false
+  },
+  "per_video_tests": {
+    "amb_d_drawer_close": {
+      "human_acc": 57.49999999999999,
+      "vlm_acc": 75.0,
+      "p_value": 0.6337043557690181,
+      "significant": false
+    },
+    "amb_l_block": {
+      "human_acc": 80.0,
+      "vlm_acc": 75.0,
+      "p_value": 1.0,
+      "significant": false
+    },
+    "amb_r_block": {
+      "human_acc": 62.5,
+      "vlm_acc": 25.0,
+      "p_value": 0.2889555141398589,
+      "significant": false
+    },
+    "amb_to_drawer_close": {
+      "human_acc": 57.49999999999999,
+      "vlm_acc": 75.0,
+      "p_value": 0.6337043557690181,
+      "significant": false
+    },
+    "le_d_drawer_close": {
+      "human_acc": 70.0,
+      "vlm_acc": 75.0,
+      "p_value": 1.0,
+      "significant": false
+    },
+    "le_l_block": {
+      "human_acc": 75.0,
+      "vlm_acc": 66.66666666666666,
+      "p_value": 1.0,
+      "significant": false
+    },
+    "le_r_block": {
+      "human_acc": 77.5,
+      "vlm_acc": 50.0,
+      "p_value": 0.2564621991734868,
+      "significant": false
+    },
+    "le_t_drawer_close": {
+      "human_acc": 55.00000000000001,
+      "vlm_acc": 75.0,
+      "p_value": 0.6221022312911139,
+      "significant": false
+    }
+  }
+}

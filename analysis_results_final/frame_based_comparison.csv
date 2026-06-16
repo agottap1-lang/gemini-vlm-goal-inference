@@ -1,0 +1,9 @@
+video_id,trajectory_type,ground_truth,vlm_time_sec,vlm_frame,human_mean_time_sec,human_mean_frame,frame_difference,vlm_fewer_frames
+amb_d_drawer_close,ambiguous,A,5,150,10.2775547154688,307.8333333333333,-157.83333333333331,157.83333333333331
+amb_l_block,ambiguous,A,4,120,5.913671715800187,177.0,-57.0,57.0
+amb_r_block,ambiguous,B,6,180,7.586143531610979,227.16666666666666,-47.16666666666666,47.16666666666666
+amb_to_drawer_close,ambiguous,B,2,60,7.818043940629252,234.0,-174.0,174.0
+le_d_drawer_close,legible,A,3,90,6.735666282981252,201.5,-111.5,111.5
+le_l_block,legible,A,4,120,8.345032268600358,250.0,-130.0,130.0
+le_r_block,legible,B,5,150,5.283517965052206,158.0,-8.0,8.0
+le_t_drawer_close,legible,B,1,30,5.416647123793484,162.0,-132.0,132.0

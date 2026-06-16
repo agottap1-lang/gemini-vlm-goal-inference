@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1700" height="1100" viewBox="0 0 1700 1100">
+  <rect width="1700" height="1100" fill="#F7F7F5"/>
+
+  <text x="850" y="60" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="34" font-weight="700" fill="#1F2937">
+    Figure C. Formulas and Decision Rules Used in the Pipeline
+  </text>
+  <text x="850" y="94" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="18" fill="#6B7280">
+    This figure separates prompt constraints, VLM outputs, hardcoded code rules, and downstream metrics.
+  </text>
+
+  <rect x="40" y="150" rx="22" ry="22" width="500" height="280" fill="#E9F7F4" stroke="#0F766E" stroke-width="3"/>
+  <rect x="40" y="150" rx="22" ry="22" width="500" height="62" fill="#0F766E"/>
+  <text x="290" y="190" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="24" font-weight="700" fill="#FFFFFF">Prompt / Sampling Rules</text>
+  <text x="66" y="248" font-family="DejaVu Sans Mono, Consolas, monospace" font-size="19" fill="#1F2937">
+    <tspan x="66" dy="0">target_times = 0, 1, 2, ...</tspan>
+    <tspan x="66" dy="30">frame_idx = int(t * fps)</tspan>
+    <tspan x="66" dy="44" font-family="DejaVu Sans, Arial, sans-serif">single_frame  -&gt; image[t]</tspan>
+    <tspan x="66" dy="28" font-family="DejaVu Sans, Arial, sans-serif">prefix_frames -&gt; images[0..t]</tspan>
+    <tspan x="66" dy="44" font-family="DejaVu Sans Mono, Consolas, monospace">0 &lt;= pA, pB &lt;= 1</tspan>
+    <tspan x="66" dy="30" font-family="DejaVu Sans Mono, Consolas, monospace">pA + pB = 1</tspan>
+  </text>
+
+  <rect x="600" y="150" rx="22" ry="22" width="500" height="280" fill="#FEF1E9" stroke="#C2410C" stroke-width="3"/>
+  <rect x="600" y="150" rx="22" ry="22" width="500" height="62" fill="#C2410C"/>
+  <text x="850" y="190" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="24" font-weight="700" fill="#FFFFFF">Direct VLM Outputs</text>
+  <text x="626" y="248" font-family="DejaVu Sans Mono, Consolas, monospace" font-size="19" fill="#1F2937">
+    <tspan x="626" dy="0">pA = P(Goal A | observed frame(s))</tspan>
+    <tspan x="626" dy="30">pB = P(Goal B | observed frame(s))</tspan>
+  </text>
+  <text x="626" y="334" font-family="DejaVu Sans, Arial, sans-serif" font-size="19" fill="#1F2937">
+    <tspan x="626" dy="0">cue = short natural-language visual explanation</tspan>
+    <tspan x="626" dy="30">legible in {"legible_now", "not_legible_yet"}</tspan>
+    <tspan x="626" dy="42">Important: legible is returned by the model,</tspan>
+    <tspan x="626" dy="28">not computed from pA / pB in code.</tspan>
+  </text>
+
+  <rect x="1160" y="150" rx="22" ry="22" width="500" height="280" fill="#FDEAF3" stroke="#BE185D" stroke-width="3"/>
+  <rect x="1160" y="150" rx="22" ry="22" width="500" height="62" fill="#BE185D"/>
+  <text x="1410" y="190" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="24" font-weight="700" fill="#FFFFFF">Hardcoded Post-Processing</text>
+  <text x="1186" y="248" font-family="DejaVu Sans Mono, Consolas, monospace" font-size="18" fill="#1F2937">
+    <tspan x="1186" dy="0">max_p = max(pA, pB)</tspan>
+    <tspan x="1186" dy="30">confidence = int(round(max_p * 100))</tspan>
+    <tspan x="1186" dy="44">choice = "A" if max_p &gt;= 0.52 and pA &gt;= pB</tspan>
+    <tspan x="1186" dy="30">choice = "B" if max_p &gt;= 0.52 and pB &gt;  pA</tspan>
+    <tspan x="1186" dy="30">choice = "C" if max_p &lt;  0.52</tspan>
+    <tspan x="1186" dy="44">If pA == pB and threshold passes, choose A.</tspan>
+  </text>
+
+  <rect x="40" y="490" rx="22" ry="22" width="790" height="250" fill="#ECF4FF" stroke="#1D4ED8" stroke-width="3"/>
+  <rect x="40" y="490" rx="22" ry="22" width="790" height="62" fill="#1D4ED8"/>
+  <text x="435" y="530" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="24" font-weight="700" fill="#FFFFFF">Manifest-Based Evaluation Fields</text>
+  <text x="66" y="590" font-family="DejaVu Sans Mono, Consolas, monospace" font-size="19" fill="#1F2937">
+    <tspan x="66" dy="0">goal_gt in {"A", "B"}</tspan>
+    <tspan x="66" dy="30">traj_type in {"legible", "ambiguous"}</tspan>
+    <tspan x="66" dy="44">correct = 1 if choice == goal_gt else 0</tspan>
+  </text>
+  <text x="66" y="710" font-family="DejaVu Sans, Arial, sans-serif" font-size="19" fill="#1F2937">
+    <tspan x="66" dy="0">Because goal_gt is only A or B, choice == "C" is always counted as incorrect.</tspan>
+  </text>
+
+  <rect x="870" y="490" rx="22" ry="22" width="790" height="250" fill="#EAF8EE" stroke="#15803D" stroke-width="3"/>
+  <rect x="870" y="490" rx="22" ry="22" width="790" height="62" fill="#15803D"/>
+  <text x="1265" y="530" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="24" font-weight="700" fill="#FFFFFF">Temporal Legibility Metrics</text>
+  <text x="896" y="590" font-family="DejaVu Sans Mono, Consolas, monospace" font-size="18" fill="#1F2937">
+    <tspan x="896" dy="0">L_vlm   = {t : legible(t) == "legible_now"}</tspan>
+    <tspan x="896" dy="30">L_human = {t : human says legible at t}</tspan>
+    <tspan x="896" dy="44">TTL_vlm   = min(L_vlm)   if L_vlm   is not empty else None</tspan>
+    <tspan x="896" dy="30">TTL_human = min(L_human) if L_human is not empty else None</tspan>
+    <tspan x="896" dy="44">IoU = |L_vlm INTERSECT L_human| / |L_vlm UNION L_human|</tspan>
+  </text>
+
+  <rect x="40" y="800" rx="22" ry="22" width="1620" height="220" fill="#FFF3E6" stroke="#B45309" stroke-width="3"/>
+  <rect x="40" y="800" rx="22" ry="22" width="1620" height="62" fill="#B45309"/>
+  <text x="850" y="840" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="24" font-weight="700" fill="#FFFFFF">What to Say Out Loud</text>
+  <text x="66" y="905" font-family="DejaVu Sans, Arial, sans-serif" font-size="20" fill="#1F2937">
+    <tspan x="66" dy="0">1. pA, pB, cue, and legible come from the VLM.</tspan>
+    <tspan x="66" dy="34">2. choice and confidence are deterministic code outputs computed from pA and pB.</tspan>
+    <tspan x="66" dy="34">3. goal_gt and traj_type come from the manifest and are used only after inference.</tspan>
+    <tspan x="66" dy="34">4. The current code uses threshold 0.52 for choice, even though some docs still mention 0.60.</tspan>
+  </text>
+</svg>

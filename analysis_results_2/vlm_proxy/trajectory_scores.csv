@@ -1,0 +1,9 @@
+video_id,traj_type,human_mean,human_sd,human_se,human_n,vlm_accuracy,vlm_p_correct,vlm_n
+amb_d_drawer_close,Ambiguous,57.5000,22.5198,7.9620,8,75.0000,0.8225,4
+amb_l_block,Ambiguous,80.0000,10.6904,3.7796,8,75.0000,0.8650,4
+amb_r_block,Ambiguous,62.5000,16.6905,5.9010,8,25.0000,0.4125,4
+amb_to_drawer_close,Ambiguous,57.5000,7.0711,2.5000,8,75.0000,0.8475,4
+le_d_drawer_close,Legible,70.0000,21.3809,7.5593,8,75.0000,0.8575,4
+le_l_block,Legible,75.0000,13.3631,4.7246,8,66.6667,0.7967,3
+le_r_block,Legible,77.5000,7.0711,2.5000,8,50.0000,0.6225,4
+le_t_drawer_close,Legible,55.0000,9.2582,3.2733,8,75.0000,0.8675,4

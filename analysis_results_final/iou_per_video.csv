@@ -1,0 +1,9 @@
+video_id,iou,matches,total
+le_t_drawer_close,66.66666666666666,16,24
+le_l_block,94.44444444444444,17,18
+le_r_block,70.83333333333334,17,24
+amb_to_drawer_close,75.0,18,24
+le_d_drawer_close,79.16666666666666,19,24
+amb_l_block,95.83333333333334,23,24
+amb_d_drawer_close,62.5,15,24
+amb_r_block,45.83333333333333,11,24

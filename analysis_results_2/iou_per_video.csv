@@ -1,0 +1,9 @@
+video_id,trajectory_type,iou,matches,total
+amb_d_drawer_close,ambiguous,62.5,20,32
+amb_l_block,ambiguous,96.875,31,32
+amb_r_block,ambiguous,46.875,15,32
+amb_to_drawer_close,ambiguous,78.125,25,32
+le_d_drawer_close,legible,78.125,25,32
+le_l_block,legible,95.83333333333334,23,24
+le_r_block,legible,71.875,23,32
+le_t_drawer_close,legible,68.75,22,32
