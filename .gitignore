@@ -115,5 +115,6 @@ venv.bak/
 .dmypy.json
 dmypy.json
 
-# Outputs
-outputs/
+# Outputs — track data files (JSONL/JSON/CSV), exclude generated images and extracted frames
+outputs/**/frames/
+outputs/*.png

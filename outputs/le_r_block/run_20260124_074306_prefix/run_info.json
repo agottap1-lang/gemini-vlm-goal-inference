@@ -1,0 +1,25 @@
+{
+  "run_id": "c2334815-c4e0-4675-820b-227da931a5ff",
+  "run_directory": "c:\\Users\\anude\\OneDrive\\Documents\\gemini_vlm_eval\\outputs\\le_r_block\\run_20260124_074306_prefix",
+  "timestamp_utc_start": "2026-01-24T07:43:06.688828Z",
+  "timestamp_utc_end": "2026-01-24T07:43:43.242507Z",
+  "video_id": "le_r_block",
+  "video_path": "videos/le r block.mp4",
+  "git_commit": "unknown",
+  "repo_dirty": false,
+  "python_version": "3.12.3 (tags/v3.12.3:f6650f9, Apr  9 2024, 14:05:25) [MSC v.1938 64 bit (AMD64)]",
+  "os": "Windows",
+  "platform": "Windows-11-10.0.26100-SP0",
+  "opencv_version": "4.13.0",
+  "google_genai_version": "1.59.0",
+  "evaluation_mode": "prefix_frames",
+  "save_frames": true,
+  "command_line": "c:/Users/anude/OneDrive/Documents/gemini_vlm_eval/scripts/evaluate_video.py",
+  "api_key_source": "env:GEMINI_API_KEY",
+  "pip_freeze_path": "c:\\Users\\anude\\OneDrive\\Documents\\gemini_vlm_eval\\outputs\\le_r_block\\run_20260124_074306_prefix\\pip_freeze.txt",
+  "machine_info": {
+    "cpu": "AMD64 Family 25 Model 117 Stepping 2, AuthenticAMD",
+    "cpu_count": 16,
+    "ram_bytes": null
+  }
+}

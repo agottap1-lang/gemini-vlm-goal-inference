@@ -1,0 +1,25 @@
+{
+  "run_id": "61e11b13-5255-4ff7-98d6-607189d1bfe0",
+  "run_directory": "c:\\Users\\anude\\OneDrive\\Documents\\gemini_vlm_eval\\outputs\\le_d_drawer_close\\run_20260124_073701_prefix",
+  "timestamp_utc_start": "2026-01-24T07:37:01.204015Z",
+  "timestamp_utc_end": "2026-01-24T07:37:49.760420Z",
+  "video_id": "le_d_drawer_close",
+  "video_path": "videos/le d drawer close.mp4",
+  "git_commit": "unknown",
+  "repo_dirty": false,
+  "python_version": "3.12.3 (tags/v3.12.3:f6650f9, Apr  9 2024, 14:05:25) [MSC v.1938 64 bit (AMD64)]",
+  "os": "Windows",
+  "platform": "Windows-11-10.0.26100-SP0",
+  "opencv_version": "4.13.0",
+  "google_genai_version": "1.59.0",
+  "evaluation_mode": "prefix_frames",
+  "save_frames": true,
+  "command_line": "c:/Users/anude/OneDrive/Documents/gemini_vlm_eval/scripts/evaluate_video.py",
+  "api_key_source": "env:GEMINI_API_KEY",
+  "pip_freeze_path": "c:\\Users\\anude\\OneDrive\\Documents\\gemini_vlm_eval\\outputs\\le_d_drawer_close\\run_20260124_073701_prefix\\pip_freeze.txt",
+  "machine_info": {
+    "cpu": "AMD64 Family 25 Model 117 Stepping 2, AuthenticAMD",
+    "cpu_count": 16,
+    "ram_bytes": null
+  }
+}

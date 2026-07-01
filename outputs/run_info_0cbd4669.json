@@ -1,0 +1,30 @@
+{
+  "run_id": "0cbd4669-fbd1-424a-912f-2834613ae2a1",
+  "timestamp_utc_start": "2026-04-10T21:58:08.314920Z",
+  "timestamp_utc_end": "2026-04-10T22:01:27.328710Z",
+  "git_commit": "c6ac4f47c0461f64ddce3c2c128127e5e11d8b17",
+  "repo_dirty": true,
+  "python_version": "3.12.3 (tags/v3.12.3:f6650f9, Apr  9 2024, 14:05:25) [MSC v.1938 64 bit (AMD64)]",
+  "os": "Windows",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "opencv_version": "4.13.0",
+  "google_genai_version": "1.59.0",
+  "openai_version": "2.31.0",
+  "anthropic_version": "0.93.0",
+  "provider": "openai",
+  "model": "gpt-5.4",
+  "evaluation_mode": "prefix_frames",
+  "save_frames": false,
+  "command_line": "scripts/eval_dataset.py --manifest data/manifest.jsonl --provider openai --model gpt-5.4 --k all --mode prefix_frames --out outputs/results_gpt54.jsonl",
+  "manifest_path": "data/manifest.jsonl",
+  "output_path": "outputs/results_gpt54.jsonl",
+  "k_seconds": "all",
+  "num_videos": 8,
+  "api_key_source": "env:OPENAI_API_KEY",
+  "pip_freeze_path": "outputs\\pip_freeze.txt",
+  "machine_info": {
+    "cpu": "AMD64 Family 25 Model 117 Stepping 2, AuthenticAMD",
+    "cpu_count": 16,
+    "ram_bytes": null
+  }
+}

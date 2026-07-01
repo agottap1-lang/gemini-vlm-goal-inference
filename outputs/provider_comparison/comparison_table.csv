@@ -1,0 +1,4 @@
+Provider,Accuracy (%),IoU (%),No-Flip Rate (%),Early Correct (%),Total Flips,Committed Predictions,Abstain (C) Count
+Gemini 3 Pro,95.45,95.45,87.5,87.5,1,22,9
+GPT-4o,60.0,60.0,50.0,62.5,5,20,11
+Claude Opus,86.96,86.96,75.0,75.0,2,23,8

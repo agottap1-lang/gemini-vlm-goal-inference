@@ -1,0 +1,22 @@
+{
+  "run_id": "9083ddf2-cd89-4d90-8fd0-438b03e2cab9",
+  "timestamp_utc_start": "2026-01-23T01:26:37.476037Z",
+  "timestamp_utc_end": "2026-01-23T01:27:18.312338Z",
+  "git_commit": "unknown",
+  "repo_dirty": false,
+  "python_version": "3.12.3 (tags/v3.12.3:f6650f9, Apr  9 2024, 14:05:25) [MSC v.1938 64 bit (AMD64)]",
+  "os": "Windows",
+  "platform": "Windows-11-10.0.26100-SP0",
+  "opencv_version": "4.13.0",
+  "google_genai_version": "1.59.0",
+  "evaluation_mode": "prefix_frames",
+  "save_frames": true,
+  "command_line": "scripts\\evaluate_video.py",
+  "api_key_source": "env:GEMINI_API_KEY",
+  "pip_freeze_path": "C:\\Users\\anude\\OneDrive\\Documents\\gemini_vlm_eval\\outputs\\pip_freeze.txt",
+  "machine_info": {
+    "cpu": "AMD64 Family 25 Model 117 Stepping 2, AuthenticAMD",
+    "cpu_count": 16,
+    "ram_bytes": null
+  }
+}
